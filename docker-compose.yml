@@ -1,0 +1,42 @@
+version: "3.7"
+services:
+  locust-master:
+    image: swernst/locusts
+    volumes:
+      - ./locust_scripts:/scripts
+    ports:
+      - "8089:8089"
+
+  locust-worker:
+    image: swernst/locusts
+    command: "--master-host=locust-master"
+    volumes:
+      - ./locust_scripts:/scripts
+
+  database:
+    image: postgres:11.2-alpine
+    ports:
+      - 5432:5432
+    volumes:
+      - ./database_scripts/init.sql:/docker-entrypoint-initdb.d/init.sql
+    environment:
+      - POSTGRES_USER=caes_username
+      - POSTGRES_PASSWORD=caes_password
+      - POSTGRES_DB=caes_stress_test
+
+  website:
+    build: ./website/
+    image: website
+    command: flask run --host=0.0.0.0 --port=5000
+    ports:
+      - 5000:5000
+    volumes:
+      - ./website/:/website/
+    environment:
+      - SQL_DATABASE=caes_stress_test
+      - SQL_USER=caes_username
+      - SQL_PASSWORD=caes_password
+      - SQL_HOST=database
+      - SQL_PORT=5432
+    depends_on:
+      - database
