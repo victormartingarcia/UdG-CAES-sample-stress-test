@@ -27,6 +27,6 @@ That should have set up a toy website with 3 sections:
 * [http://127.0.0.1:5000/insert_fake_user](http://12.0.0.1:5000/insert_fake_user) - Inserts a user with a fake email into the database
 * [http://127.0.0.1:5000/list_fake_users](http://12.0.0.1:5000/list_fake_users) - Print all users on the database
 
-This is the website we are going to stress test using [a python locust script](locust/scripts/locustfile.py) that mimics a user accessing the 3 sections.
+This is the website we are going to stress test using [a python locust script](locust_scripts/locustfile.py) that mimics a user accessing the 3 sections.
 
 Open url address [http://127.0.0.1:8089](http://127.0.0.1:8089) to access locust web interface for running and analyzing load/stress tests
