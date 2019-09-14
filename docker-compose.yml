@@ -7,7 +7,7 @@ services:
     ports:
       - "8089:8089"
 
-  locust-worker:
+  locust-worker-1:
     image: swernst/locusts
     command: "--master-host=locust-master"
     volumes:

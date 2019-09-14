@@ -1,25 +1,21 @@
 from locust import HttpLocust, TaskSet, task
 
 
-class BasicTaskSet(TaskSet):
+class CaesTaskSet(TaskSet):
 
-    @task(2)
-    def root(self):
-        self.client.get('/')
-
-    @task(1)
+    @task(10)
     def insert_fake_email(self):
-    	self.client.get('/insert_fake_email')
+    	self.client.get('/insert_fake_user')
 
     @task(1)
     def list_fake_emails(self):
-    	self.client.get('/list_fake_emails')
+    	self.client.get('/list_fake_users')
 
 
 
 
-class BasicTasks(HttpLocust):
-    task_set = BasicTaskSet
+class CaesTasks(HttpLocust):
+    task_set = CaesTaskSet
     min_wait = 5000
     max_wait = 10000
     
